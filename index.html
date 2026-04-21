@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Du'arte Barbershop — Cortes com estilo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a href="#" class="brand">
+      <img src="logo.png" alt="Du'Arte Barbearia" class="brand-logo" />
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#precos">Preços</a>
+      <a href="#localizacao">Localização</a>
+      <a href="#contacto">Contacto</a>
+      <a href="#marcar" class="nav-cta">Marcar Corte</a>
+    </nav>
+    <a href="#marcar" class="btn btn-primary btn-sm nav-desktop-cta">Marcar Corte</a>
+    <button type="button" class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <h1>Cortes com <span class="gold">estilo</span>,<br/>tradição e precisão.</h1>
+      <p class="lead">Na Du'arte combinamos técnica clássica com um toque moderno. Reserve já o seu corte.</p>
+      <div class="hero-cta">
+        <a href="#marcar" class="btn btn-primary">Marcar Corte</a>
+        <a href="#precos" class="btn btn-ghost">Ver Preços</a>
+      </div>
+      <div class="hero-meta">
+        <div><strong>15+</strong><span>Anos de experiência</span></div>
+        <div><strong>4.9★</strong><span>Avaliação clientes</span></div>
+        <div><strong>5K+</strong><span>Cortes realizados</span></div>
+      </div>
+    </div>
+    <div class="hero-image" aria-hidden="true">
+      <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=900&q=80" alt="Barbeiro a cortar o cabelo de um cliente na barbearia Du'arte" />
+      <div class="hero-badge">
+        <span class="dot"></span> Aberto hoje · 09h — 20h
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="precos" class="pricing">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Tabela de Preços</span>
+      <h2>Transparência em cada <span class="gold">euro</span></h2>
+    </div>
+    <div class="price-list">
+      <div class="price-row"><span class="price-name">Corte Simples</span><span class="price-dots"></span><span class="price-value">15€</span></div>
+      <div class="price-row"><span class="price-name">Corte Degradê</span><span class="price-dots"></span><span class="price-value">17€</span></div>
+      <div class="price-row"><span class="price-name">Corte Simples + Barba</span><span class="price-dots"></span><span class="price-value">17€</span></div>
+      <div class="price-row">
+        <span class="price-name">Corte Degradê + Barba</span>
+        <span class="price-dots"></span>
+        <span class="price-value">19€</span>
+      </div>
+      <div class="price-row"><span class="price-name">Barba</span><span class="price-dots"></span><span class="price-value">5€</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="marcar" class="booking">
+  <div class="container booking-inner">
+    <div class="booking-intro">
+      <span class="eyebrow">Marcação</span>
+      <h2>Reserve o seu <span class="gold">horário</span></h2>
+      <ul class="booking-list">
+        <li><span class="check">✓</span> Confirmação instantânea</li>
+        <li><span class="check">✓</span> Cancelamento gratuito até 2h antes</li>
+        <li><span class="check">✓</span> Lembrete por SMS</li>
+      </ul>
+    </div>
+
+    <form class="booking-form" id="bookingForm" novalidate>
+      <fieldset class="fieldset">
+        <legend>1. Serviço</legend>
+        <div class="radio-grid">
+          <label class="radio-card">
+            <input type="radio" name="service" value="Corte de Cabelo" required />
+            <span class="radio-title">Corte de Cabelo</span>
+            <span class="radio-sub">30 min · desde 15€</span>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="service" value="Barba" />
+            <span class="radio-title">Barba</span>
+            <span class="radio-sub">15 min · 5€</span>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="service" value="Cabelo + Barba" />
+            <span class="radio-title">Cabelo + Barba</span>
+            <span class="radio-sub">45 min · desde 17€</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend>2. Data</legend>
+        <div class="calendar" id="calendar" aria-label="Calendário de marcação">
+          <div class="cal-head">
+            <button type="button" class="cal-nav" id="prevMonth" aria-label="Mês anterior">‹</button>
+            <span class="cal-title" id="calTitle"></span>
+            <button type="button" class="cal-nav" id="nextMonth" aria-label="Mês seguinte">›</button>
+          </div>
+          <div class="cal-weekdays">
+            <span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span><span>D</span>
+          </div>
+          <div class="cal-grid" id="calGrid"></div>
+        </div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend>3. Hora</legend>
+        <div class="time-grid" id="timeGrid"></div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend>4. Os seus dados</legend>
+        <div class="input-row">
+          <label class="input">
+            <span>Nome</span>
+            <input type="text" name="name" required placeholder="O seu nome" />
+          </label>
+          <label class="input">
+            <span>Telemóvel</span>
+            <input type="tel" name="phone" required placeholder="912 345 678" />
+          </label>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="btn btn-primary btn-lg btn-block">Confirmar Marcação</button>
+      <p class="form-note" id="formNote" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<section id="localizacao" class="location">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Onde estamos</span>
+      <h2>Visite-nos na <span class="gold">Amadora</span></h2>
+    </div>
+    <div class="location-grid">
+      <div class="location-info">
+        <h3>Du'Arte Barbearia</h3>
+        <p class="address">
+          Rua Moreira Cardoso 2A<br/>
+          2720-388 Amadora
+        </p>
+        <ul class="location-meta">
+          <li><strong>Horário</strong><span>Seg — Sáb · 09h00 — 20h00</span></li>
+          <li><strong>Telefone</strong><span>+351 999 999 999</span></li>
+        </ul>
+        <a class="btn btn-primary" target="_blank" rel="noopener"
+           href="https://www.google.com/maps/dir/?api=1&destination=Rua+Moreira+Cardoso+2A,+2720-388+Amadora">
+          Obter direções
+        </a>
+      </div>
+      <div class="map-wrap">
+        <div id="map" role="img" aria-label="Mapa da Du'Arte Barbearia"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contacto" class="footer">
+  <div class="container footer-inner">
+    <div>
+      <div class="brand footer-brand">
+        <img src="logo.png" alt="Du'Arte Barbearia" class="brand-logo brand-logo-footer" />
+      </div>
+    </div>
+    <div>
+      <h4>Horário</h4>
+      <p class="muted">Seg — Sáb · 09h00 — 20h00<br/>Dom · Fechado</p>
+    </div>
+    <div>
+      <h4>Contacto</h4>
+      <p class="muted">Rua do Corte, 12 · Lisboa<br/>+351 999 999 999</p>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span class="muted">© 2026 Du'arte Barbershop. Todos os direitos reservados.</span>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
