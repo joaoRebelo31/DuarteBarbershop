@@ -111,7 +111,7 @@ a { color: inherit; text-decoration: none; }
 .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 104px; }
 .brand { display: inline-flex; align-items: center; gap: 10px; }
 .brand-logo {
-  height: 82px;
+  height: 80px;
   width: auto;
   display: block;
 }
